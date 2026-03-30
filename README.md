@@ -140,8 +140,6 @@ Le dossier `marketing/` contient :
 
 **Réseaux Sociaux**:
 - Instagram
-- LinkedIn
-- Behance
 - Twitter
 
 ## 📄 Licence
