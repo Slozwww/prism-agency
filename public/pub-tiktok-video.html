@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRISM AGENCY - Pub TikTok Vidéo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            overflow: hidden;
+            background: #000;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* TikTok format: 1080x1920 (9:16) */
+        .video-container {
+            width: 1080px;
+            height: 1920px;
+            margin: 0 auto;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Scene styling */
+        .scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: scale(1.2);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scene.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .scene.exit {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        
+        /* Dynamic background effects */
+        .bg-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .gradient-bg {
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(255, 0, 0, 0.15) 0%, 
+                rgba(0, 0, 0, 1) 70%);
+            animation: gradientPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .grid-animated {
+            background-image: 
+                linear-gradient(rgba(255, 0, 0, 0.1) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.1) 2px, transparent 2px);
+            background-size: 60px 60px;
+            animation: gridFlow 1.5s linear infinite;
+        }
+        
+        @keyframes gridFlow {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(60px) translateX(60px); }
+        }
+        
+        /* Scene 1: Hook - Attention grabber */
+        #scene1 {
+            background: #000;
+        }
+        
+        .hook-text {
+            z-index: 10;
+            text-align: center;
+            animation: textExplosion 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes textExplosion {
+            0% {
+                transform: scale(0) rotate(-45deg);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2) rotate(5deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        
+        .hook-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 140px;
+            font-weight: 900;
+            color: #FF0000;
+            text-shadow: 
+                0 0 40px rgba(255, 0, 0, 1),
+                0 0 80px rgba(255, 0, 0, 0.8),
+                5px 5px 0 rgba(0, 0, 0, 0.8);
+            line-height: 1.1;
+            margin-bottom: 60px;
+            animation: glitchText 0.3s infinite;
+        }
+        
+        @keyframes glitchText {
+            0%, 90%, 100% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-5px, 5px);
+            }
+            40% {
+                transform: translate(-5px, -5px);
+            }
+            60% {
+                transform: translate(5px, 5px);
+            }
+            80% {
+                transform: translate(5px, -5px);
+            }
+        }
+        
+        .hook-text .emoji {
+            font-size: 180px;
+            display: block;
+            animation: emojiSpin 2s ease infinite;
+        }
+        
+        @keyframes emojiSpin {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+        }
+        
+        .hook-text p {
+            font-size: 65px;
+            font-weight: 800;
+            color: #FFF;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: slideInBottom 1s ease 0.5s both;
+        }
+        
+        @keyframes slideInBottom {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Scene 2: Problem */
+        #scene2 {
+            background: linear-gradient(135deg, #1a0000 0%, #000 100%);
+        }
+        
+        .problem-container {
+            z-index: 10;
+            text-align: center;
+            max-width: 90%;
+        }
+        
+        .problem-icon {
+            font-size: 250px;
+            margin-bottom: 80px;
+            animation: shakeIntense 0.5s ease infinite;
+        }
+        
+        @keyframes shakeIntense {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            10% { transform: translate(-10px, -10px) rotate(-5deg); }
+            20% { transform: translate(10px, -10px) rotate(5deg); }
+            30% { transform: translate(-10px, 10px) rotate(-5deg); }
+            40% { transform: translate(10px, 10px) rotate(5deg); }
+            50% { transform: translate(-10px, -10px) rotate(-5deg); }
+            60% { transform: translate(10px, -10px) rotate(5deg); }
+            70% { transform: translate(-10px, 10px) rotate(-5deg); }
+            80% { transform: translate(10px, 10px) rotate(5deg); }
+        }
+        
+        .problem-text h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 90px;
+            font-weight: 900;
+            color: #FFF;
+            line-height: 1.3;
+            margin-bottom: 50px;
+            animation: typeWriter 1.5s steps(30) both;
+        }
+        
+        @keyframes typeWriter {
+            0% {
+                width: 0;
+                opacity: 0;
+            }
+            1% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        .problem-text .highlight {
+            color: #FF0000;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+        }
+        
+        /* Scene 3: Solution - Logo reveal */
+        #scene3 {
+            background: #000;
+        }
+        
+        .solution-container {
+            z-index: 10;
+            text-align: center;
+        }
+        
+        .logo-hexagon-big {
+            width: 500px;
+            height: 500px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background: linear-gradient(135deg, #FF0000 0%, #CC0000 50%, #FF0000 100%);
+            filter: drop-shadow(0 0 80px rgba(255, 0, 0, 1));
+            animation: hexagonReveal 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+            position: relative;
+            margin: 0 auto 100px;
+        }
+        
+        @keyframes hexagonReveal {
+            0% {
+                transform: scale(0) rotate(-360deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        
+        .logo-hexagon-big::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            background: #000;
+            clip-path: polygon(50% 20%, 80% 40%, 80% 60%, 50% 80%, 20% 60%, 20% 40%);
+        }
+        
+        .brand-text {
+            animation: fadeInScale 1s ease 0.8s both;
+        }
+        
+        @keyframes fadeInScale {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .brand-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 160px;
+            font-weight: 900;
+            color: #FF0000;
+            letter-spacing: 30px;
+            text-shadow: 0 0 50px rgba(255, 0, 0, 1);
+            margin-bottom: 30px;
+        }
+        
+        .brand-text h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 70px;
+            font-weight: 600;
+            color: #FFF;
+            letter-spacing: 20px;
+        }
+        
+        /* Scene 4: Promise - 7 days */
+        #scene4 {
+            background: radial-gradient(circle at center, #1a0000 0%, #000 100%);
+        }
+        
+        .promise-container {
+            z-index: 10;
+            text-align: center;
+        }
+        
+        .lightning {
+            font-size: 350px;
+            animation: lightningStrike 1s ease;
+            filter: drop-shadow(0 0 60px rgba(255, 0, 0, 1));
+        }
+        
+        @keyframes lightningStrike {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            10% { opacity: 0; }
+            20% { opacity: 1; transform: scale(1.3); }
+            30% { opacity: 0; }
+            40% { opacity: 1; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        .days-counter {
+            margin: 80px 0;
+            animation: counterZoom 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.5s both;
+        }
+        
+        @keyframes counterZoom {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .days-counter .number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 300px;
+            font-weight: 900;
+            color: #FF0000;
+            text-shadow: 
+                0 0 50px rgba(255, 0, 0, 1),
+                0 0 100px rgba(255, 0, 0, 0.8);
+            line-height: 1;
+            display: inline-block;
+            animation: numberPulse 1s ease infinite;
+        }
+        
+        @keyframes numberPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .days-counter .label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 100px;
+            font-weight: 900;
+            color: #FFF;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+        }
+        
+        .promise-text {
+            animation: slideInTop 1s ease 1s both;
+        }
+        
+        @keyframes slideInTop {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .promise-text p {
+            font-size: 70px;
+            font-weight: 800;
+            color: #FFF;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            line-height: 1.4;
+        }
+        
+        /* Scene 5: Features rapid fire */
+        #scene5 {
+            background: #000;
+        }
+        
+        .features-rapid {
+            z-index: 10;
+            width: 90%;
+        }
+        
+        .feature-item {
+            margin-bottom: 100px;
+            opacity: 0;
+            animation: featurePop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+        }
+        
+        .feature-item:nth-child(1) { animation-delay: 0s; }
+        .feature-item:nth-child(2) { animation-delay: 0.3s; }
+        .feature-item:nth-child(3) { animation-delay: 0.6s; }
+        .feature-item:nth-child(4) { animation-delay: 0.9s; }
+        
+        @keyframes featurePop {
+            0% {
+                transform: translateX(-200px) rotate(-10deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        
+        .feature-item .icon {
+            font-size: 120px;
+            float: left;
+            margin-right: 50px;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.6));
+        }
+        
+        .feature-item .text h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 80px;
+            font-weight: 900;
+            color: #FF0000;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+        
+        .feature-item .text p {
+            font-size: 50px;
+            font-weight: 700;
+            color: #FFF;
+            line-height: 1.3;
+        }
+        
+        .feature-item::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+        
+        /* Scene 6: Social proof */
+        #scene6 {
+            background: linear-gradient(135deg, #0d0000 0%, #000 100%);
+        }
+        
+        .stats-explosive {
+            z-index: 10;
+            width: 90%;
+        }
+        
+        .stat-row {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 120px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            animation: statExplode 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+        }
+        
+        .stat-row:nth-child(1) .stat-box:nth-child(1) { animation-delay: 0.1s; }
+        .stat-row:nth-child(1) .stat-box:nth-child(2) { animation-delay: 0.3s; }
+        .stat-row:nth-child(2) .stat-box:nth-child(1) { animation-delay: 0.5s; }
+        .stat-row:nth-child(2) .stat-box:nth-child(2) { animation-delay: 0.7s; }
+        
+        @keyframes statExplode {
+            0% {
+                transform: scale(0) rotate(180deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        
+        .stat-box .number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 200px;
+            font-weight: 900;
+            color: #FF0000;
+            text-shadow: 0 0 60px rgba(255, 0, 0, 1);
+            line-height: 1;
+            display: block;
+            margin-bottom: 30px;
+        }
+        
+        .stat-box .label {
+            font-size: 55px;
+            font-weight: 800;
+            color: #FFF;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        /* Scene 7: CTA Final */
+        #scene7 {
+            background: #000;
+        }
+        
+        .cta-explosive {
+            z-index: 10;
+            text-align: center;
+        }
+        
+        .cta-badge-pulse {
+            display: inline-block;
+            padding: 40px 100px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 5px solid #FF0000;
+            margin-bottom: 100px;
+            animation: badgeIntense 1s ease infinite;
+        }
+        
+        @keyframes badgeIntense {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 60px rgba(255, 0, 0, 1);
+            }
+        }
+        
+        .cta-badge-pulse span {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 65px;
+            font-weight: 900;
+            color: #FF0000;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        
+        .cta-main-text {
+            margin-bottom: 120px;
+            animation: ctaReveal 1s ease 0.5s both;
+        }
+        
+        @keyframes ctaReveal {
+            0% {
+                transform: translateY(50px) scale(0.9);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .cta-main-text h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 120px;
+            font-weight: 900;
+            color: #FFF;
+            line-height: 1.2;
+            margin-bottom: 40px;
+        }
+        
+        .cta-main-text .red {
+            color: #FF0000;
+            text-shadow: 0 0 40px rgba(255, 0, 0, 1);
+            display: block;
+        }
+        
+        .cta-button-mega {
+            display: inline-block;
+            padding: 60px 150px;
+            background: #FF0000;
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 90px;
+            font-weight: 900;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 0 60px rgba(255, 0, 0, 1);
+            animation: buttonMegaPulse 1.5s ease infinite;
+            border: none;
+            cursor: pointer;
+        }
+        
+        @keyframes buttonMegaPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 60px rgba(255, 0, 0, 1);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 100px rgba(255, 0, 0, 1);
+            }
+        }
+        
+        .cta-contact {
+            margin-top: 80px;
+            animation: fadeIn 1s ease 1.5s both;
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        .cta-contact p {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 70px;
+            color: #FF0000;
+            font-weight: 900;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+        }
+        
+        /* Floating particles */
+        .particles-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #FF0000;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+            animation: particleFloat 4s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 5s;
+        }
+        
+        .particle:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+            animation-duration: 6s;
+        }
+        
+        .particle:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 2s;
+            animation-duration: 4.5s;
+        }
+        
+        .particle:nth-child(4) {
+            bottom: 15%;
+            right: 25%;
+            animation-delay: 1.5s;
+            animation-duration: 5.5s;
+        }
+        
+        .particle:nth-child(5) {
+            top: 50%;
+            left: 5%;
+            animation-delay: 0.5s;
+            animation-duration: 6s;
+        }
+        
+        .particle:nth-child(6) {
+            top: 40%;
+            right: 10%;
+            animation-delay: 2.5s;
+            animation-duration: 5s;
+        }
+        
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.6;
+            }
+            25% {
+                transform: translateY(-80px) translateX(40px) scale(1.2);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-150px) translateX(-30px) scale(0.8);
+                opacity: 0.8;
+            }
+            75% {
+                transform: translateY(-80px) translateX(50px) scale(1.1);
+                opacity: 1;
+            }
+        }
+        
+        /* Progress bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 0, 0, 0.2);
+            z-index: 2000;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: #FF0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 1);
+            transition: width 0.3s ease;
+        }
+        
+        /* Video controls */
+        .video-controls {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .control-button {
+            width: 90px;
+            height: 90px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 4px solid #FF0000;
+            color: #FF0000;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            backdrop-filter: blur(10px);
+        }
+        
+        .control-button:hover {
+            background: #FF0000;
+            color: #000;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 1);
+            transform: scale(1.1);
+        }
+        
+        .control-button.play-btn {
+            width: 110px;
+            height: 110px;
+            font-size: 50px;
+        }
+        
+        .scene-indicator {
+            color: #FF0000;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 30px;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+        }
+        
+        /* Download button */
+        .download-info {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid #FF0000;
+            padding: 20px 40px;
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .download-info p {
+            color: #FF0000;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <div class="download-info">
+        <p>📹 FORMAT TIKTOK 9:16</p>
+    </div>
+    
+    <div class="video-container">
+        <!-- Scene 1: Hook -->
+        <div class="scene active" id="scene1">
+            <div class="bg-effect gradient-bg"></div>
+            <div class="particles-container">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
+            <div class="hook-text">
+                <span class="emoji">🤯</span>
+                <h1>STOP !</h1>
+                <p>Vous perdez des clients<br>chaque jour...</p>
+            </div>
+        </div>
+        
+        <!-- Scene 2: Problem -->
+        <div class="scene" id="scene2">
+            <div class="bg-effect grid-animated"></div>
+            <div class="problem-container">
+                <div class="problem-icon">😰</div>
+                <div class="problem-text">
+                    <h2>
+                        Votre site met<br>
+                        <span class="highlight">DES MOIS</span><br>
+                        à être créé ?
+                    </h2>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 3: Solution - Logo -->
+        <div class="scene" id="scene3">
+            <div class="bg-effect gradient-bg"></div>
+            <div class="particles-container">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
+            <div class="solution-container">
+                <div class="logo-hexagon-big"></div>
+                <div class="brand-text">
+                    <h1>PRISM</h1>
+                    <h2>AGENCY</h2>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 4: Promise -->
+        <div class="scene" id="scene4">
+            <div class="bg-effect gradient-bg"></div>
+            <div class="promise-container">
+                <div class="lightning">⚡</div>
+                <div class="days-counter">
+                    <div class="number">7</div>
+                    <div class="label">JOURS</div>
+                </div>
+                <div class="promise-text">
+                    <p>Votre site est<br>prêt et en ligne !</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 5: Features -->
+        <div class="scene" id="scene5">
+            <div class="bg-effect grid-animated"></div>
+            <div class="features-rapid">
+                <div class="feature-item">
+                    <div class="icon">💻</div>
+                    <div class="text">
+                        <h3>DESIGN</h3>
+                        <p>Moderne et professionnel</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">🚀</div>
+                    <div class="text">
+                        <h3>RAPIDE</h3>
+                        <p>Performance optimale</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">📱</div>
+                    <div class="text">
+                        <h3>RESPONSIVE</h3>
+                        <p>Mobile, tablette, desktop</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">🔒</div>
+                    <div class="text">
+                        <h3>SÉCURISÉ</h3>
+                        <p>Protection maximale</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 6: Social Proof -->
+        <div class="scene" id="scene6">
+            <div class="bg-effect gradient-bg"></div>
+            <div class="stats-explosive">
+                <div class="stat-row">
+                    <div class="stat-box">
+                        <span class="number">200+</span>
+                        <span class="label">Projets</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="number">75+</span>
+                        <span class="label">Clients</span>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-box">
+                        <span class="number">7J</span>
+                        <span class="label">Livraison</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="number">99%</span>
+                        <span class="label">Satisfaits</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 7: CTA -->
+        <div class="scene" id="scene7">
+            <div class="bg-effect grid-animated"></div>
+            <div class="particles-container">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
+            <div class="cta-explosive">
+                <div class="cta-badge-pulse">
+                    <span>🔥 OFFRE LIMITÉE 🔥</span>
+                </div>
+                <div class="cta-main-text">
+                    <h2>
+                        LANCEZ VOTRE
+                        <span class="red">BUSINESS</span>
+                        MAINTENANT !
+                    </h2>
+                </div>
+                <button class="cta-button-mega">
+                    DEVIS GRATUIT
+                </button>
+                <div class="cta-contact">
+                    <p>📱 06 50 03 68 77</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="video-controls">
+        <button class="control-button" id="prevBtn">◄</button>
+        <button class="control-button play-btn" id="playBtn">▶</button>
+        <button class="control-button" id="nextBtn">►</button>
+        <span class="scene-indicator" id="sceneIndicator">1/7</span>
+    </div>
+    
+    <script>
+        let currentScene = 0;
+        const scenes = document.querySelectorAll('.scene');
+        const totalScenes = scenes.length;
+        let isPlaying = false;
+        let autoPlayInterval;
+        let sceneTimings = [3000, 2500, 2500, 3000, 4000, 3000, 4000]; // Different timing for each scene
+        
+        function showScene(index) {
+            scenes.forEach((scene, i) => {
+                scene.classList.remove('active', 'exit');
+                if (i === index) {
+                    scene.classList.add('active');
+                } else if (i === currentScene) {
+                    scene.classList.add('exit');
+                }
+            });
+            
+            currentScene = index;
+            updateProgress();
+            updateIndicator();
+        }
+        
+        function nextScene() {
+            const next = (currentScene + 1) % totalScenes;
+            showScene(next);
+            
+            if (isPlaying) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = setTimeout(() => {
+                    if (isPlaying) nextScene();
+                }, sceneTimings[next]);
+            }
+        }
+        
+        function prevScene() {
+            const prev = (currentScene - 1 + totalScenes) % totalScenes;
+            showScene(prev);
+        }
+        
+        function updateProgress() {
+            const progress = ((currentScene + 1) / totalScenes) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+        
+        function updateIndicator() {
+            document.getElementById('sceneIndicator').textContent = `${currentScene + 1}/${totalScenes}`;
+        }
+        
+        function togglePlay() {
+            const playBtn = document.getElementById('playBtn');
+            
+            if (isPlaying) {
+                clearInterval(autoPlayInterval);
+                clearTimeout(autoPlayInterval);
+                playBtn.textContent = '▶';
+                isPlaying = false;
+            } else {
+                playBtn.textContent = '❚❚';
+                isPlaying = true;
+                autoPlayInterval = setTimeout(() => {
+                    if (isPlaying) nextScene();
+                }, sceneTimings[currentScene]);
+            }
+        }
+        
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (isPlaying) togglePlay();
+            prevScene();
+        });
+        
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (isPlaying) togglePlay();
+            nextScene();
+        });
+        
+        document.getElementById('playBtn').addEventListener('click', togglePlay);
+        
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                if (isPlaying) togglePlay();
+                nextScene();
+            }
+            if (e.key === 'ArrowLeft') {
+                if (isPlaying) togglePlay();
+                prevScene();
+            }
+            if (e.key === ' ') {
+                e.preventDefault();
+                togglePlay();
+            }
+        });
+        
+        // Auto-start after 1 second
+        setTimeout(() => {
+            togglePlay();
+        }, 1000);
+        
+        updateProgress();
+        updateIndicator();
+    </script>
+</body>
+</html>
